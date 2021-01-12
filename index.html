@@ -15,10 +15,29 @@
 </head>
 
 <body>
+    <div class="login-page text-center">
+        <form class="form-login">
+            <h3 class="h3 mb-3 font-weight-normal">Please sign in</h3>
+            <label for="input-email-login" class="sr-only">Email address</label>
+            <input type="email" class="form-control" id="input-email-login" required="" autofocus=""
+                placeholder="Email address">
+            <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone-->
+            <!--else.</small>-->
+            <label for="input-password-login" class="sr-only">Password</label>
+            <input type="password" class="form-control" id="input-password-login" required="" placeholder="Password">
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me">
+                    Remember me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+        </form>
+    </div>
     <div class="main-page">
         <!--nav-container-->
         <div class="container-fluid bg-danger">
-            <div class="container">
+            <div class="container-navbar">
                 <div class="row align-items-center">
 
                     <div class="col">

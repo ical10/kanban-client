@@ -7,6 +7,17 @@
     /*background-color: #24252A;*/
 }
 
+.form-login {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.main-page {
+    display: none;
+}
+
 li, a, button {
     font-family: "Roboto", sans-serif;
     font-weight: 500;
@@ -39,7 +50,7 @@ li, a, button {
     color: #0088a9
 }
 
-button {
+.container-navbar button {
     border: none;
     border-radius: 40px;
     margin-left: 20px;
