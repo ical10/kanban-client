@@ -15,14 +15,19 @@
 </head>
 
 <body>
+    <!--login page-->
     <div class="login-page text-center">
-        <form class="form-login">
+        <form class="form-login-register">
+            <div class="container">
+                <div class="d-flex flex-column align-items-center">
+                    <img class="mt-2" src="img/kanban.svg" alt="" width="72" height="72"><br>
+                    <span class="mt-2 mb-4"><b>KANBANCoder</b></span>
+                </div>
+            </div>
             <h3 class="h3 mb-3 font-weight-normal">Please sign in</h3>
             <label for="input-email-login" class="sr-only">Email address</label>
             <input type="email" class="form-control" id="input-email-login" required="" autofocus=""
                 placeholder="Email address">
-            <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone-->
-            <!--else.</small>-->
             <label for="input-password-login" class="sr-only">Password</label>
             <input type="password" class="form-control" id="input-password-login" required="" placeholder="Password">
             <div class="checkbox mb-3">
@@ -34,9 +39,30 @@
             <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
         </form>
     </div>
+
+    <!--register page-->
+    <div class="register-page text-center">
+        <form class="form-login-register">
+            <div class="container">
+                <div class="d-flex flex-column align-items-center">
+                    <img class="mt-2" src="img/kanban.svg" alt="" width="72" height="72"><br>
+                    <span class="mt-2 mb-4"><b>KANBANCoder</b></span>
+                </div>
+            </div>
+            <h3 class="h3 mb-3 font-weight-normal">Please register</h3>
+            <label for="input-email-login" class="sr-only">Email address</label>
+            <input type="email" class="form-control" id="input-email-login" required="" autofocus=""
+                placeholder="Email address">
+            <label for="input-password-login" class="sr-only">Password</label>
+            <input type="password" class="form-control" id="input-password-login" required="" placeholder="Password">
+            <button type="submit" class="btn btn-lg btn-primary btn-block mt-3">Register</button>
+        </form>
+    </div>
+
+    <!--main page-->
     <div class="main-page">
         <!--nav-container-->
-        <div class="container-fluid bg-danger">
+        <div class="container-fluid">
             <div class="container-navbar">
                 <div class="row align-items-center">
 
@@ -49,7 +75,7 @@
                             <li><a href="#">Projects</a></li>
                             <li><a href="#">About</a></li>
                         </ul>
-                        <a class="cta" href="#"><button>Contact</button></a>
+                        <button class="btn btn-sm btn-outline-info">Contact</button>
                     </div>
                 </div>
             </div>

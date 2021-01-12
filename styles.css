@@ -7,7 +7,7 @@
     /*background-color: #24252A;*/
 }
 
-.form-login {
+.form-login-register {
     width: 100%;
     max-width: 330px;
     padding: 15px;
@@ -15,10 +15,18 @@
 }
 
 .main-page {
+    /*display: none;*/
+}
+
+.register-page {
     display: none;
 }
 
-li, a, button {
+.login-page {
+    display: none;
+}
+
+li, a {
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     font-size: 16px;
@@ -51,12 +59,8 @@ li, a, button {
 }
 
 .container-navbar button {
-    border: none;
-    border-radius: 40px;
     margin-left: 20px;
-    padding: 8px 24px;
     cursor: pointer;
-    background-color: rgba(0,130,160,1);
     transition: all 0.3s ease 0s;
 }
 
@@ -76,13 +80,3 @@ button:hover {
 }
 
 
-/*.container-main .boards .category .cardboard-content .card-task {*/
-   /*padding: 5px;*/
-   /*margin-bottom: 5px;*/
-   /*border-radius: 10px;*/
-/*}*/
-
-/*.container-main .boards .category .cardboard-content .card-task .task-description {*/
-    /*display: flex;*/
-    /*margin-top: 5px;*/
-/*}*/
