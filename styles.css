@@ -7,7 +7,7 @@
     /*background-color: #24252A;*/
 }
 
-.form-login, .form-register {
+.form-login, .form-register, .add-task-form {
     width: 100%;
     max-width: 350px;
     padding: 15px;
@@ -15,7 +15,7 @@
 }
 
 .main-page {
-    display: none;
+    /*display: none;*/
 }
 
 .front-page {
@@ -61,7 +61,7 @@ li, a {
     transition: all 0.3s ease 0s;
 }
 
-button:hover {
+.container-navbar button:hover {
     background-color: rgba(0,130,160,0.6);
 }
 

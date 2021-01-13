@@ -18,8 +18,8 @@
     <div id="app" class="container">
 
         <!--front-page-->
-        <div class="front-page text-center">
-            <form class="form-login">
+        <div class="front-page text-center" v-if="page == 'front-page'">
+            <form class="form-login" @submit.prevent="login">
                 <div class="container pl-0 pr-0">
                     <div class="d-flex flex-column align-items-center">
                         <img class="mt-2" src="img/kanban.svg" alt="" width="72" height="72"><br>
@@ -34,10 +34,10 @@
                 <h3 class="h3 mb-3 font-weight-normal">Please sign in</h3>
                 <label for="input-email-login" class="sr-only">Email address</label>
                 <input type="email" class="form-control" id="input-email-login" required="" autofocus=""
-                    placeholder="Email address">
+                    placeholder="Email address" v-model="user.email">
                 <label for="input-password-login" class="sr-only">Password</label>
-                <input type="password" class="form-control" id="input-password-login" required=""
-                    placeholder="Password">
+                <input type="password" class="form-control" id="input-password-login" required="" placeholder="Password"
+                    v-model="user.password">
                 <div class="checkbox mb-3 mt-2">
                     <label>
                         <input type="checkbox" value="remember-me">
@@ -47,7 +47,7 @@
                 <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
             </form>
 
-            <form class="form-register">
+            <form class="form-register" @submit.prevent="register">
                 <div class="container pl-0 pr-0">
 
                     <div class="d-flex flex-column align-items-center">
@@ -69,11 +69,23 @@
                     placeholder="Password">
                 <button type="submit" class="btn btn-lg btn-primary btn-block mt-3">Register</button>
             </form>
+        </div>
 
+        <div class="add-task-form" v-else-if="page == 'add-task-form'">
+            <div class="card">
+                <form class="add-task-form" @submit.prevent="addTaskConfirm">
+                    <h3 class="h3 mb-3 font-weight-normal">Add a new task</h3>
+                    <input type="text" class="form-control" required="" autofocus=""
+                        placeholder="Give it a meaningful title..." v-model="inputTask.title">
+                    <input type="text" class="form-control" required="" placeholder="Describe it well..."
+                        v-model="inputTask.description">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block mt-3">Confirm</button>
+                </form>
+            </div>
         </div>
 
         <!--main page-->
-        <div class="main-page">
+        <div class="main-page" v-else-if="page == 'main-page'">
             <!--nav-container-->
             <div class="container-fluid">
                 <div class="container-navbar">
@@ -88,71 +100,38 @@
                                 <li><a href="#">Projects</a></li>
                                 <li><a href="#">About</a></li>
                             </ul>
-                            <button class="btn btn-sm btn-outline-info">Contact</button>
+                            <button class="btn btn-sm btn-outline-info" @click="logout">Logout</button>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="container-main">
                 <div class="container mt-3">
                     <div class="row">
                         <div class="col-3 pl-2 pr-2">
                             <div class="category p-3 bg-warning">
                                 <div class="cardboard-header"><span>
-                                        <h4>Backlogs</h4>
+                                        <h4>Backlog</h4>
                                     </span>
                                 </div>
-                                <div class="cardboard-content overflow-auto">
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                Makan nasi goreng
-                                            </h5>
-                                            <p class="card-text">Masaknya pake pasir</p>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                Makan nasi goreng
-                                            </h5>
-                                            <p class="card-text">Masaknya pake pasir</p>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                Makan nasi goreng
-                                            </h5>
-                                            <p class="card-text">Masaknya pake pasir</p>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                Makan nasi goreng
-                                            </h5>
-                                            <p class="card-text">Masaknya pake pasir</p>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                Makan nasi goreng
-                                            </h5>
-                                            <p class="card-text">Masaknya pake pasir</p>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                Makan nasi goreng
-                                            </h5>
-                                            <p class="card-text">Masaknya pake pasir</p>
+                                <div class="cardboard-content overflow-auto mb-3">
+                                    <div class="card mb-3" v-for="task in tasks" :key="task.id">
+                                        <div class="card-header">
+                                            <button type="button" class="close" @click="deleteTask(task.id)">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    {{ task.title }}
+                                                </h5>
+                                                <p class="card-text"> {{ task.description }}</p>
+                                            </div>
                                         </div>
                                     </div>
 
+                                </div>
+                                <div class="cardboard-footer mb-3 d-flex flex-row justify-content-end">
+                                    <button class="btn btn-primary btn-sm" @click="addTask">+</button>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +139,7 @@
                         <div class="col-3 pl-2 pr-2">
                             <div class="category p-3 bg-primary">
                                 <div class="cardboard-header"><span>
-                                        <h4>Development</h4>
+                                        <h4>Todo</h4>
                                     </span>
                                 </div>
                                 <div class="cardboard-content overflow-auto">
@@ -213,7 +192,7 @@
                         <div class="col-3 pl-2 pr-2">
                             <div class="category p-3 bg-info">
                                 <div class="cardboard-header"><span>
-                                        <h4>Testing</h4>
+                                        <h4>Doing</h4>
                                     </span>
                                 </div>
                                 <div class="cardboard-content overflow-auto">
@@ -273,7 +252,7 @@
                         <div class="col-3 pl-2 pr-2">
                             <div class="category p-3 bg-danger">
                                 <div class="cardboard-header"><span>
-                                        <h4>Done</h4>
+                                        <h4>Completed</h4>
                                     </span></div>
                                 <div class="cardboard-content overflow-auto">
                                     <div class="card mb-3">
@@ -335,7 +314,9 @@
                 <!--end of div container-->
 
             </div>
+            <!--end of div container-main-->
         </div>
+        <!--end if div main-page-->
 
     </div>
 
@@ -349,7 +330,9 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <!-- development version, includes helpful console warnings -->
+    <!--axios using jsDelivr CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- development version of Vue.js, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="./main.js"></script>
 </body>
