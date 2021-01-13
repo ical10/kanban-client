@@ -7,24 +7,21 @@
     /*background-color: #24252A;*/
 }
 
-.form-login-register {
+.form-login, .form-register {
     width: 100%;
-    max-width: 330px;
+    max-width: 350px;
     padding: 15px;
     margin: 0 auto;
 }
 
 .main-page {
+    display: none;
+}
+
+.front-page {
     /*display: none;*/
 }
 
-.register-page {
-    display: none;
-}
-
-.login-page {
-    display: none;
-}
 
 li, a {
     font-family: "Roboto", sans-serif;
