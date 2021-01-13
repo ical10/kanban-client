@@ -22,7 +22,7 @@ const app = new Vue({
                 this.fetchAllTasks()
             }
             else {
-                this.changePage("front-page")
+                this.changePage("login-page")
             }
         },
         login() {
