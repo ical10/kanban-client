@@ -1,7 +1,7 @@
 <template>
     <div class="card mb-3">
         <div class="container">
-            <button type="button" class="close">
+            <button type="button" class="close" @click='deleteTask'>
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="card-body">
@@ -19,6 +19,11 @@ export default {
     name: "TaskCard",
     props: {
         task: Object
+    },
+    methods: {
+        deleteTask() {
+            this.$emit('deleteTask', this.task.id)
+        }
     }
 }
 </script>

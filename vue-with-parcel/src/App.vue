@@ -10,6 +10,7 @@
       :tasks='tasks'
       @logout="logout"
       @addTaskConfirm='addTaskConfirm'
+      @deleteTask='deleteTask'
       ></main-page>
   </div>
 </template>
@@ -98,13 +99,29 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data)
           this.fetchAllTasks()
           this.checkAuth()
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    deleteTask(taskId) {
+        axios({
+          method: 'DELETE',
+          url: this.server + `/tasks/${taskId}`,
+          headers: {
+            access_token: localStorage.getItem("access_token")   
+          }
+        })
+        .then(({ response }) => {
+              console.log(response)
+              this.fetchAllTasks()
+              this.checkAuth()
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
   },
   created() {

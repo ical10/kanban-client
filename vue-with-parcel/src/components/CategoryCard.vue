@@ -10,6 +10,7 @@
                         v-for="task in filterTasks"
                         :key="task.id"
                         :task="task"
+                        @deleteTask='deleteTask'
                         ></TaskCard>
                 </div>
 
@@ -38,6 +39,9 @@ export default {
                 page: "addForm",
                 categoryTitle: this.category.title
             })
+        },
+        deleteTask(taskId) {
+            this.$emit('deleteTask', taskId)
         }
     },
     computed: {

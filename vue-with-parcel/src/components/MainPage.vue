@@ -32,6 +32,7 @@
                             <CategoryCard
                                 v-for="category in categories" 
                                 @addTask="addTask"
+                                @deleteTask="deleteTask"
                                 :key="category.id"
                                 :category="category"
                                 :tasks="tasks"></CategoryCard>
@@ -99,6 +100,9 @@ export default {
         },
         addTaskCancel(payload) {
             this.changeMainPage(payload)
+        },
+        deleteTask(taskId) {
+            this.$emit('deleteTask', taskId)
         },
         logout() {
             this.$emit('logout')
