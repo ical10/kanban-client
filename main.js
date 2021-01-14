@@ -12,7 +12,7 @@ const app = new Vue({
             email: '',
             password: ''
         },
-        server: `http://localhost:3000`
+        server: 'http://localhost:5001'
     },
     methods: {
         //methods related with HTML page lifecycle
@@ -29,8 +29,34 @@ const app = new Vue({
             localStorage.setItem('access_token', 'access token sembarang')
             this.checkAuth()
         },
+        onSignIn(googleUser) {
+            const id_token = googleUser.getAuthResponse().id_token
+
+            axios({
+                method: 'POST',
+                url: server + '/loginGoogle',
+                data: {
+                    id_token
+                }
+            })
+                .then(response => {
+                    console.log(response)
+                    localStorage.setItem('access_token', response.access_token)
+                    this.checkAuth()
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            })
+        },
         logout() {
             localStorage.clear()
+            this.signOut()
             this.checkAuth()
         },
         changePage(page) {
