@@ -6,7 +6,8 @@
       @changePage="changePage"
       ></login-page>
     <main-page
-      v-else
+      v-if="currentPage == 'main-page'"
+      :tasks='tasks'
       @logout="logout"
       ></main-page>
   </div>
@@ -69,7 +70,10 @@ export default {
     fetchAllTasks() {
             axios({
                 method: 'GET',
-                url: this.server + '/tasks'
+                url: this.server + '/tasks',
+              headers: {
+                access_token: localStorage.getItem("access_token")
+              }
             })
                 .then(response => {
                     this.tasks = response.data

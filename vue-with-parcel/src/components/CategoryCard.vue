@@ -7,7 +7,7 @@
                 </div>
                 <div class="cardboard-content overflow-auto mb-3">
                     <TaskCard
-                        v-for="task in tasks"
+                        v-for="task in filterTasks"
                         :key="task.id"
                         :task="task"
                         ></TaskCard>
@@ -35,6 +35,11 @@ export default {
     methods: {
         addTask() {
             this.$emit('addTask', "addForm")
+        }
+    },
+    computed: {
+        filterTasks() {
+            return this.tasks.filter(task => task.category == this.category.title)
         }
     }
 }

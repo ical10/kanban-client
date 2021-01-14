@@ -57,39 +57,25 @@ export default {
             categories: [
             {
                 id: 1,
-                title: 'Backlog',
-                color: 'text-success'
+                title: 'Backlog'
             },
             {
                 id: 2,
-                title: 'Todo',
-                color: 'text-danger'
+                title: 'Todo'
             },
             {
                 id: 3,
-                title: 'Done',
-                color: 'text-warning'
-            },
-            ],
-            tasks: [
-            {
-                title: 'Buat makan',
-                category: 'Backlog',
-                description: 'Bikin nasi goreng buat 2 porsi'
-                
+                title: 'Doing'
             },
             {
-                title: 'Ambil paket',
-                category: 'Todo',
-                description: 'Ke ENJ ambil paket'
-            },
-            {
-                title: 'Belajar buat livecode',
-                category: 'Done',
-                description: 'Buat lagi porto kanban dari awal buat latihan LC'
-            },
+                id: 4,
+                title: 'Completed'
+            }
             ]
         }
+    },
+    props: {
+        tasks: Array
     },
     components: {
         AddForm,
