@@ -34,7 +34,10 @@ export default {
     },
     methods: {
         addTask() {
-            this.$emit('addTask', "addForm")
+            this.$emit('addTask', {
+                page: "addForm",
+                categoryTitle: this.category.title
+            })
         }
     },
     computed: {

@@ -21,12 +21,13 @@
         </div>
         <div class="container-main">
            <div class="container mt-3">
-                <div class="row">
+                <div class="row d-flex justify-content-center">
                     <AddForm v-if="currentMainPage == 'addForm'" 
                     @addTaskConfirm="addTaskConfirm"
+                    @addTaskCancel="addTaskCancel"
                     ></AddForm>
                     <div class="col-12" 
-                        v-else-if="currentMainPage == 'CategoryCards'">
+                        v-if="currentMainPage == 'CategoryCards'">
                         <div class="row">
                             <CategoryCard
                                 v-for="category in categories" 
@@ -53,6 +54,7 @@ export default {
     name: 'MainPage',
     data () {
         return {
+            currentCategory: '',
             currentMainPage: 'CategoryCards',
             categories: [
             {
@@ -86,10 +88,16 @@ export default {
             this.currentMainPage = payload
         },
         addTaskConfirm(payload) {
-            const { title, description } = payload
-            console.log(">>>> ini dari MainPage", title, description)
+            payload.category = this.currentCategory
+            this.$emit('addTaskConfirm', payload)
+            this.changeMainPage('CategoryCards')
         },
         addTask(payload) {
+            const { page, categoryTitle } = payload
+            this.currentCategory = categoryTitle
+            this.changeMainPage(page)
+        },
+        addTaskCancel(payload) {
             this.changeMainPage(payload)
         },
         logout() {

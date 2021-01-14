@@ -9,6 +9,7 @@
       v-if="currentPage == 'main-page'"
       :tasks='tasks'
       @logout="logout"
+      @addTaskConfirm='addTaskConfirm'
       ></main-page>
   </div>
 </template>
@@ -64,23 +65,46 @@ export default {
         })
     },
     logout() {
-            localStorage.clear()
-            this.checkAuth()
+        localStorage.clear()
+        this.checkAuth()
     },
     fetchAllTasks() {
-            axios({
-                method: 'GET',
-                url: this.server + '/tasks',
-              headers: {
-                access_token: localStorage.getItem("access_token")
-              }
+        axios({
+            method: 'GET',
+            url: this.server + '/tasks',
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        })
+            .then(response => {
+                this.tasks = response.data
             })
-                .then(response => {
-                    this.tasks = response.data
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    addTaskConfirm(payload) {
+      const { title, description, category } = payload
+      axios({
+        method: 'POST',
+        url: this.server + '/tasks',
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        },
+        data: {
+          title,
+          description,
+          category
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          this.fetchAllTasks()
+          this.checkAuth()
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   created() {
