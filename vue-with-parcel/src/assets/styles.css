@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /*background-color: #24252A;*/
+}
+
+.form-login, .form-register, .add-task-form {
+    width: 100%;
+    max-width: 350px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.main-page {
+    /*display: none;*/
+}
+
+.front-page {
+    /*display: none;*/
+}
+
+
+li, a {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+}
+
+.logo {
+    cursor: pointer;
+    margin-right: auto;
+    max-width: 5%;
+}
+
+.nav-links {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.nav-links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav-links li a {    
+    transition: all 0.4s ease 0s;
+}
+
+.nav-links li a:hover {
+    color: #0088a9
+}
+
+.container-navbar button {
+    margin-left: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.container-navbar button:hover {
+    background-color: rgba(0,130,160,0.6);
+}
+
+.container-main .category {
+    /*border-radius: 15px 50px 30px;*/
+    background-color: rgb(31, 25, 25);
+    border: 1px solid rgb(212, 212, 212);
+    border-width: thin;
+}
+
+.cardboard-content {
+    height: 500px;
+}
+
+
