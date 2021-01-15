@@ -2,7 +2,7 @@ import axios from "axios"
 
 const instance = axios.create({
   //baseURL: 'http://localhost:5001',
-  baseURL: 'https://git.heroku.com/kanbancoder-ical10.git',
+  baseURL: 'https://kanbancoder-ical10.herokuapp.com/',
   timeout: 1000
 });
 
