@@ -12,6 +12,7 @@
                         :task="task"
                         @deleteTask='deleteTask'
                         @getTaskDetails='getTaskDetails'
+                        :errorMessages='errorMessages'
                         ></TaskCard>
                 </div>
 
@@ -29,7 +30,8 @@ export default {
     name: 'CategoryCard',
     props: {
         category: Object,
-        tasks: Array
+        tasks: Array,
+        errorMessages: Array
     },
     components: {
         TaskCard

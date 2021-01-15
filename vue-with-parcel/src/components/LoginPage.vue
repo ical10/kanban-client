@@ -22,6 +22,10 @@
                   <label for="input-password-login" class="sr-only">Password</label>
                   <input type="password" class="form-control" id="input-password-login" required="" placeholder="Password"
                       v-model="password">
+                  <div class="alert alert-danger mt-3" role="alert" 
+                    v-for="(errorMessage, idx) in errorMessages" :key="idx">
+                      {{ errorMessage }}
+                  </div>
                   <button type="submit" class="btn btn-lg btn-primary btn-block mt-3">Login</button>
                   <hr />
                   <div class="d-flex flex-row justify-content-center align-items-center mb-3">
@@ -43,6 +47,12 @@
                   <label for="input-password-register" class="sr-only">Password</label>
                   <input type="password" class="form-control" id="input-password-register" required=""
                       placeholder="Password" v-model='password'>
+                  
+                  <div class="alert alert-danger mt-3" role="alert" 
+                    v-for="(errorMessage, idx) in errorMessages" :key="idx">
+                      {{ errorMessage }}
+                  </div>
+
                   <button type="submit" class="btn btn-lg btn-primary btn-block mt-3">Register</button>
               
               </form>
@@ -63,6 +73,9 @@ export default {
       password: '',
       loginPageForm: 'login-form-page'
     }
+  },
+  props: {
+    errorMessages: Array
   },
   methods: {
     login() {

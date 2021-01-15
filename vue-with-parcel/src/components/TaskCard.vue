@@ -27,12 +27,27 @@
 <script>
 export default {
     name: "TaskCard",
+    data () {
+        return {
+            error: ''
+        }
+    },
     props: {
-        task: Object
+        task: Object,
+        errorMessages: Array
     },
     methods: {
         deleteTask() {
             this.$emit('deleteTask', this.task.id)
+            this.error = ''
+            if(this.errorMessages.length) {
+                this.alert() 
+            }
+        },
+        alert() {
+            this.error = this.errorMessages[0]
+            this.$swal(this.error)
+            this.error = ''
         },
         getTaskDetails() {
             this.$emit('getTaskDetails', {

@@ -35,6 +35,7 @@
                     :detailedTask='detailedTask'
                     :changeMainPage='changeMainPage'
                     :categories='categories'
+                    :errorMessages='errorMessages'
                     @editTaskConfirm='editTaskConfirm'
                     @changeCategory='changeCategory'
                     ></TaskDetails>
@@ -50,7 +51,9 @@
                                 @getTaskDetails='getTaskDetails'
                                 :key="category.id"
                                 :category="category"
-                                :tasks="tasks"></CategoryCard>
+                                :tasks="tasks"
+                                :errorMessages='errorMessages'
+                                ></CategoryCard>
                         </div>
                     </div>
                 </div>
@@ -95,7 +98,8 @@ export default {
         }
     },
     props: {
-        tasks: Array
+        tasks: Array,
+        errorMessages: Array
     },
     components: {
         AddForm,

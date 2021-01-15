@@ -58,13 +58,15 @@ export default {
             title: '',
             description: '',
             categoryTitle: '',
-            id: ''
+            id: '',
+            error: ''
         }
     },
     props: {
         detailedTask: Object,
         changeMainPage: Function,
-        categories: Array
+        categories: Array,
+        errorMessages: Array
     },
     methods: {
         closeCard() {
@@ -83,6 +85,15 @@ export default {
                 taskId: this.detailedTask.id
             }
             this.$emit('editTaskConfirm', payload)
+            if(this.errorMessages.length) {
+                this.alert() 
+            }
+        },
+        alert() {
+            this.error = this.errorMessages[0]
+            this.$swal(this.errorMessages[0])
+            this.$swal(this.error)
+            this.error = ''
         },
         changeCategory() {
             this.id = this.detailedTask.id
@@ -91,7 +102,12 @@ export default {
                 taskId: this.id
             }
             this.$emit('changeCategory', payload)
-            this.closeCard()
+            if(this.errorMessages.length) {
+                this.alert() 
+            }
+            else {
+                this.closeCard()
+            }
         }
     },
     computed: {

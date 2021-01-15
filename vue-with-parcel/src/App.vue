@@ -5,10 +5,12 @@
       @login="login"
       @register='register'
       @changePage="changePage"
+      :errorMessages='errorMessages'
       ></login-page>
     <main-page
       v-if="currentPage == 'main-page'"
       :tasks='tasks'
+      :errorMessages='errorMessages'
       @logout="logout"
       @addTaskConfirm='addTaskConfirm'
       @deleteTask='deleteTask'
@@ -23,14 +25,18 @@
 import axios from './config/axiosInstance'
 import LoginPage from "./components/LoginPage.vue"
 import MainPage from "./components/MainPage.vue"
+import Vue from 'vue'
+import VueSwal from 'vue-swal'
+ 
+Vue.use(VueSwal)
 
 export default {
   name: "App",
   data() {
     return {
     currentPage: '',
-    tasks: []
-    // server: 'http://localhost:5001'
+    tasks: [],
+    errorMessages: []
     } 
   },
   components: {
@@ -66,7 +72,7 @@ export default {
           this.checkAuth()
         })
         .catch(err => {
-          console.log(err)
+          this.errorMessages = err.response.data.messages
         })
     },
     register(payload) {
@@ -84,11 +90,12 @@ export default {
               this.checkAuth()
             })
             .catch(err => {
-              console.log(err)
+              this.errorMessages = err.response.data.messages
             })
     },
     logout() {
         localStorage.clear()
+        this.errorMessages = []
         this.checkAuth()
     },
     fetchAllTasks() {
@@ -137,12 +144,11 @@ export default {
           }
         })
         .then(({ response }) => {
-              console.log(response)
               this.fetchAllTasks()
               this.checkAuth()
             })
             .catch(err => {
-                console.log(err)
+              this.errorMessages = err.response.data.messages
             })
     },
     getTaskDetails(payload) {
@@ -180,7 +186,7 @@ export default {
             this.checkAuth()
         })
         .catch(err => {
-            console.log(err)
+            this.errorMessages = err.response.data.messages
         })
     },
     changeCategory(payload) {
@@ -200,7 +206,7 @@ export default {
             this.checkAuth()
         })
         .catch(err => {
-            console.log(err)
+            this.errorMessages = err.response.data.messages
         })
     }
   },
