@@ -5,13 +5,11 @@
             <div class="container-navbar">
                 <div class="row d-flex align-items-center">
                     <div class="col">
-                        <a class="logo" alt="logo"><b>kanbancoder</b></a>
+                        <a class="logo" alt="logo"><b>KanBanCoder</b></a>
                     </div>
                     <div class="col d-flex justify-content-end">
                         <ul class="nav-links">
-                            <li><a href="#">home</a></li>
-                            <li><a href="#">projects</a></li>
-                            <li><a href="#">about</a></li>
+                            <li><a id="github-link" href="https://github.com/ical10" target="_blank">My Github page</a></li>
                         </ul>
                         <button class="btn btn-sm btn-outline-danger mt-2 float-right" type="button" @click="logout">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
@@ -35,7 +33,8 @@
 
                     <TaskDetails v-if="currentMainPage == 'task-details'"
                     :detailedTask='detailedTask'
-                    :changeMainPage='changeMainPage'></TaskDetails>
+                    :changeMainPage='changeMainPage'
+                    @editTaskConfirm='editTaskConfirm'></TaskDetails>
 
 
                     <div class="col-12" 
@@ -124,7 +123,11 @@ export default {
             const { page, taskId } = payload
             const selectedTask = this.tasks.filter(task => task.id === taskId)
             this.detailedTask = selectedTask[0]
+            console.log(this.detailedTask)
             this.changeMainPage(page)
+        },
+        editTaskConfirm(payload) {
+            this.$emit('editTaskConfirm', payload)
         },
         logout() {
             this.$emit('logout')
@@ -134,5 +137,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

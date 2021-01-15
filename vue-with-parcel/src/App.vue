@@ -3,6 +3,7 @@
     <login-page 
       v-if="currentPage == 'login-page'"
       @login="login"
+      @register='register'
       @changePage="changePage"
       ></login-page>
     <main-page
@@ -37,13 +38,13 @@ export default {
   },
   methods: {
     checkAuth() {
-            if (localStorage.getItem('access_token')) {
-                this.changePage('main-page')
-                this.fetchAllTasks()
-            }
-            else {
-                this.changePage('login-page')
-            }
+      if (localStorage.getItem('access_token')) {
+          this.changePage('main-page')
+          this.fetchAllTasks()
+      }
+      else {
+          this.changePage('login-page')
+      }
     },
     changePage(payload) {
       this.currentPage = payload
@@ -60,13 +61,30 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(">>>>> masuk then")
           localStorage.setItem("access_token", data.access_token)
           this.checkAuth()
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    register(payload) {
+          const { email, password } = payload
+
+          axios({
+            method: "POST",
+            url:'/register',
+            data: {
+              email,
+              password
+            }
+          })
+            .then(({ data }) => {
+              this.checkAuth()
+            })
+            .catch(err => {
+              console.log(err)
+            })
     },
     logout() {
         localStorage.clear()
