@@ -5,6 +5,7 @@
       @login="login"
       @register='register'
       @changePage="changePage"
+      @loginGoogle='loginGoogle'
       :errorMessages='errorMessages'
       ></login-page>
     <main-page
@@ -27,6 +28,7 @@ import LoginPage from "./components/LoginPage.vue"
 import MainPage from "./components/MainPage.vue"
 import Vue from 'vue'
 import VueSwal from 'vue-swal'
+import GoogleLogin from 'vue-google-login'
  
 Vue.use(VueSwal)
 
@@ -65,6 +67,25 @@ export default {
         data: {
           email,
           password
+        }
+      })
+        .then(({ data }) => {
+          localStorage.setItem("access_token", data.access_token)
+          this.checkAuth()
+        })
+        .catch(err => {
+          this.errorMessages = err.response.data.messages
+        })
+    },
+    loginGoogle(payload) {
+      console.log(">>>>>>>>")
+      const { id_token } = payload
+
+      axios({
+        method: "POST",
+        url:'/loginGoogle',
+        data: {
+          id_token
         }
       })
         .then(({ data }) => {

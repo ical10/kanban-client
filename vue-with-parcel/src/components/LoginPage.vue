@@ -29,8 +29,7 @@
                   <button type="submit" class="btn btn-lg btn-primary btn-block mt-3">Login</button>
                   <hr />
                   <div class="d-flex flex-row justify-content-center align-items-center mb-3">
-                    <!--Ada component google-signin button di sini-->
-                    <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+                    <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" @click='loginGoogle'>Login</GoogleLogin>
                   </div>
               
               </form>
@@ -64,6 +63,7 @@
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login'
 
 export default {
   name: "LoginForm",
@@ -71,8 +71,20 @@ export default {
     return {
       email: '',
       password: '',
-      loginPageForm: 'login-form-page'
+      loginPageForm: 'login-form-page',
+      id_token: '',
+      params: {
+        client_id: '507628413455-3g3s4fbeb1791vtf4ujd9j18pn0kqvms.apps.googleusercontent.com'
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true
+      }
     }
+  },
+  components: {
+    GoogleLogin
   },
   props: {
     errorMessages: Array
@@ -80,7 +92,7 @@ export default {
   methods: {
     login() {
       this.$emit('login', {
-        email: this.email,
+        email: this.email, 
         password: this.password
       })
       this.email = ''
@@ -103,7 +115,17 @@ export default {
     },
     switchToLogin() {
       this.changeLoginPageForm('login-form-page')
+    },
+    onSuccess(googleUser) {
+      this.id_token = googleUser.getAuthResponse().id_token
+      this.loginGoogle()
+    },
+    loginGoogle() {
+      this.$emit('loginGoogle', {
+        id_token: this.id_token
+      })
     }
+
   }
 }
 </script>

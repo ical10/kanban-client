@@ -16,6 +16,7 @@
     "popper.js": "^1.16.1",
     "sweetalert": "^2.1.2",
     "vue": "^2.6.12",
+    "vue-google-login": "^2.0.5",
     "vue-hot-reload-api": "^2.3.4",
     "vue-swal": "^1.0.0"
   },
