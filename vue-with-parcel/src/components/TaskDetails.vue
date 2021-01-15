@@ -27,8 +27,23 @@
                 <p class="card-text"> Created on: {{ formattedDateID }} </p>
             </div>
             <div class="card-footer">
-                <button class="btn btn-sm btn-outline-secondary" @click='editTask'>Edit</button>
-                <button class="btn btn-sm btn-outline-info">Todo</button>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-sm btn-outline-secondary" @click='editTask'>Edit</button>
+                        </div>
+                        <div class="col">
+                        <form @submit.prevent='changeCategory'>
+                            <select name="categorySelect" v-model="categoryTitle">
+                                <option value="">Move to...</option>
+                                <option v-for="(category, categoryIdx) in filteredCategories" :key="categoryIdx" :value="category.title">
+                                {{ category.title }}</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-outline-info">Confirm</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -41,12 +56,15 @@ export default {
         return {
             taskDetailPage: 'task-detail',
             title: '',
-            description: ''
+            description: '',
+            categoryTitle: '',
+            id: ''
         }
     },
     props: {
         detailedTask: Object,
-        changeMainPage: Function
+        changeMainPage: Function,
+        categories: Array
     },
     methods: {
         closeCard() {
@@ -65,6 +83,15 @@ export default {
                 taskId: this.detailedTask.id
             }
             this.$emit('editTaskConfirm', payload)
+        },
+        changeCategory() {
+            this.id = this.detailedTask.id
+            const payload = {
+                category: this.categoryTitle,
+                taskId: this.id
+            }
+            this.$emit('changeCategory', payload)
+            this.closeCard()
         }
     },
     computed: {
@@ -73,6 +100,9 @@ export default {
               year: "numeric", month: "long", day: "numeric" 
           }
         return new Date(this.detailedTask.createdAt).toLocaleDateString(['id', 'en-US'], options)
+        },
+        filteredCategories() {
+            return this.categories.filter(category => category.title !== this.detailedTask.category)
         }
     }
 }

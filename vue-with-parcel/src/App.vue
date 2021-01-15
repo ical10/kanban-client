@@ -14,6 +14,7 @@
       @deleteTask='deleteTask'
       @getTaskDetails='getTaskDetails'
       @editTaskConfirm='editTaskConfirm'
+      @changeCategory='changeCategory'
       ></main-page>
   </div>
 </template>
@@ -159,7 +160,7 @@ export default {
             .catch(err => {
                 console.log(err)
             })
-  },
+    },
     editTaskConfirm(payload) {
         const { title, description, taskId } = payload
         
@@ -181,17 +182,30 @@ export default {
         .catch(err => {
             console.log(err)
         })
+    },
+    changeCategory(payload) {
+        const { category, taskId } = payload
+        axios({
+          method: 'PATCH',
+          url: `/tasks/${taskId}`,
+          data: {
+            category
+          },
+          headers: {
+            access_token: localStorage.getItem("access_token")   
+          }
+        })
+        .then(({ response }) => {
+            this.fetchAllTasks()
+            this.checkAuth()
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
-},
+  },
   created() {
     this.checkAuth()
-
-    //const $ = require('jquery')
-    //$('[data-toggle=confirmation]').confirmation({
-    //rootSelector: '[data-toggle=confirmation]',
-    //container: 'body'
-    //}) 
-
   }
 };
 </script>

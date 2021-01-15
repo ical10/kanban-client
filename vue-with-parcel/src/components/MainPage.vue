@@ -34,7 +34,10 @@
                     <TaskDetails v-if="currentMainPage == 'task-details'"
                     :detailedTask='detailedTask'
                     :changeMainPage='changeMainPage'
-                    @editTaskConfirm='editTaskConfirm'></TaskDetails>
+                    :categories='categories'
+                    @editTaskConfirm='editTaskConfirm'
+                    @changeCategory='changeCategory'
+                    ></TaskDetails>
 
 
                     <div class="col-12" 
@@ -128,6 +131,9 @@ export default {
         },
         editTaskConfirm(payload) {
             this.$emit('editTaskConfirm', payload)
+        },
+        changeCategory(payload) {
+            this.$emit('changeCategory', payload)
         },
         logout() {
             this.$emit('logout')
