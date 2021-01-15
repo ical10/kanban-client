@@ -12,12 +12,13 @@
       @addTaskConfirm='addTaskConfirm'
       @deleteTask='deleteTask'
       @getTaskDetails='getTaskDetails'
+      @editTaskConfirm='editTaskConfirm'
       ></main-page>
   </div>
 </template>
 
 <script>
-import axios from "axios"
+import axios from './config/axiosInstance'
 import LoginPage from "./components/LoginPage.vue"
 import MainPage from "./components/MainPage.vue"
 
@@ -26,8 +27,8 @@ export default {
   data() {
     return {
     currentPage: '',
-    tasks: [],
-    server: 'http://localhost:5001'
+    tasks: []
+    // server: 'http://localhost:5001'
     } 
   },
   components: {
@@ -52,13 +53,14 @@ export default {
 
       axios({
         method: "POST",
-        url: this.server + '/login',
+        url:'/login',
         data: {
           email,
           password
         }
       })
         .then(({ data }) => {
+          console.log(">>>>> masuk then")
           localStorage.setItem("access_token", data.access_token)
           this.checkAuth()
         })
@@ -73,7 +75,7 @@ export default {
     fetchAllTasks() {
         axios({
             method: 'GET',
-            url: this.server + '/tasks',
+            url: '/tasks',
           headers: {
             access_token: localStorage.getItem("access_token")
           }
@@ -89,7 +91,7 @@ export default {
       const { title, description, category } = payload
       axios({
         method: 'POST',
-        url: this.server + '/tasks',
+        url: '/tasks',
         headers: {
           access_token: localStorage.getItem("access_token")
         },
@@ -110,7 +112,7 @@ export default {
     deleteTask(taskId) {
         axios({
           method: 'DELETE',
-          url: this.server + `/tasks/${taskId}`,
+          url: `/tasks/${taskId}`,
           headers: {
             access_token: localStorage.getItem("access_token")   
           }
@@ -128,7 +130,7 @@ export default {
         const { page, taskId } = payload
         axios({
           method: 'GET',
-          url: this.server + `/tasks/${taskId}`,
+          url: `/tasks/${taskId}`,
           headers: {
             access_token: localStorage.getItem("access_token")   
           }
@@ -139,10 +141,39 @@ export default {
             .catch(err => {
                 console.log(err)
             })
-            }
   },
+    editTaskConfirm(payload) {
+        const { title, description, taskId } = payload
+        
+        axios({
+          method: 'PUT',
+          url: `/tasks/${taskId}`,
+          data: {
+            title,
+            description
+          },
+          headers: {
+            access_token: localStorage.getItem("access_token")   
+          }
+        })
+        .then(({ response }) => {
+            this.fetchAllTasks()
+            this.checkAuth()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+},
   created() {
     this.checkAuth()
+
+    //const $ = require('jquery')
+    //$('[data-toggle=confirmation]').confirmation({
+    //rootSelector: '[data-toggle=confirmation]',
+    //container: 'body'
+    //}) 
+
   }
 };
 </script>
