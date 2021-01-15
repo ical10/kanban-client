@@ -1,6 +1,6 @@
 <template>
         <div class="col-3 pl-2 pr-2">
-            <div class="category p-3 bg-warning">
+            <div class="category p-3">
                 <div class="cardboard-header"><span>
                         <h4>{{ category.title }}</h4>
                     </span>
@@ -11,11 +11,12 @@
                         :key="task.id"
                         :task="task"
                         @deleteTask='deleteTask'
+                        @getTaskDetails='getTaskDetails'
                         ></TaskCard>
                 </div>
 
-                <div class="cardboard-footer mb-3 d-flex flex-row justify-content-end">
-                    <button class="btn btn-primary btn-sm" @click="addTask">+</button>
+                <div class="cardboard-footer d-flex flex-row justify-content-end">
+                    <button class="btn btn-sm btn-outline-info" @click="addTask">+</button>
                 </div>
             </div>
         </div>
@@ -42,6 +43,9 @@ export default {
         },
         deleteTask(taskId) {
             this.$emit('deleteTask', taskId)
+        },
+        getTaskDetails(payload) {
+            this.$emit('getTaskDetails', payload)
         }
     },
     computed: {
@@ -54,5 +58,7 @@ export default {
 
 
 <style scoped>
-
+h4 {
+    color: #FBEEC1;
+}
 </style>

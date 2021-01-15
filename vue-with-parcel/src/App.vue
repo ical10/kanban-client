@@ -11,6 +11,7 @@
       @logout="logout"
       @addTaskConfirm='addTaskConfirm'
       @deleteTask='deleteTask'
+      @getTaskDetails='getTaskDetails'
       ></main-page>
   </div>
 </template>
@@ -122,7 +123,23 @@ export default {
             .catch(err => {
                 console.log(err)
             })
-    }
+    },
+    getTaskDetails(payload) {
+        const { page, taskId } = payload
+        axios({
+          method: 'GET',
+          url: this.server + `/tasks/${taskId}`,
+          headers: {
+            access_token: localStorage.getItem("access_token")   
+          }
+        })
+        .then(({ response }) => {
+              console.log(response)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            }
   },
   created() {
     this.checkAuth()
