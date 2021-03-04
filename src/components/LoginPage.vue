@@ -4,7 +4,7 @@
             <div class="container pl-0 pr-0">
                 <div class="d-flex flex-column align-items-center">
                   <img class="mt-2" src="../assets/img/kanban.svg" alt="" width="72" height="72"><br>
-                    <span class="mt-2 mb-4"><b>KANBANCoder</b></span>
+                    <span class="navbar-brand mt-2 mb-4"><b>KANBANCoder</b></span>
                 </div>
                 <div class="d-flex flex-row justify-content-center mb-3">
                     <button class="btn btn-primary btn-sm" @click='switchToLogin'>Login</button>
@@ -30,6 +30,20 @@
                   <hr />
                   <div class="d-flex flex-row justify-content-center align-items-center mb-3">
                     <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" @click='loginGoogle'>Login</GoogleLogin>
+                  </div>
+                  <div class="d-flex flex-row justify-content-center align-items-center mb-3">
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-body">
+                        <h5 class="card-title">Hi!</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">To log yourself in quickly and see full demo of this app, use the credential below</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">email: user@mail.com</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">pass: thisisnotapassword</h6>
+                        <p class="card-text">Please use it wisely, have fun!</p>
+                      </div>
+                      <div class='card-footer'>
+                        <p>made with ❤️ <br> by @ical10</p>
+                      </div>
+                    </div>
                   </div>
               
               </form>
@@ -105,7 +119,7 @@ export default {
       })
       this.email = ''
       this.password = ''
-      this.changeLoginPageForm('login-form-page')
+      // this.changeLoginPageForm('login-form-page') --> ini dipindah ke app.vue
     },
     changeLoginPageForm(page) {
       this.loginPageForm = page
@@ -129,3 +143,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=fira+code:wght@700&display=swap');
+  .navbar-brand {
+    font-family: 'fira code', monospace;
+  }
+</style>
+

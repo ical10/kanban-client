@@ -78,7 +78,6 @@ export default {
         })
     },
     loginGoogle(payload) {
-      console.log(">>>>>>>>")
       const { id_token } = payload
 
       axios({
@@ -108,7 +107,8 @@ export default {
             }
           })
             .then(({ data }) => {
-              this.checkAuth()
+              //this.checkAuth()
+              
             })
             .catch(err => {
               this.errorMessages = err.response.data.messages
@@ -169,6 +169,7 @@ export default {
               this.checkAuth()
             })
             .catch(err => {
+              // catch error message dengan swal di sini
               this.errorMessages = err.response.data.messages
             })
     },

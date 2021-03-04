@@ -5,7 +5,7 @@
             <div class="container-navbar">
                 <div class="row d-flex align-items-center">
                     <div class="col">
-                        <a class="logo" alt="logo"><b>KanBanCoder</b></a>
+                        <a class="navbar-brand" alt="logo"><b>KanBanCoder</b></a>
                     </div>
                     <div class="col d-flex justify-content-end">
                         <ul class="nav-links">
@@ -154,4 +154,8 @@ export default {
 </script>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=fira+code:wght@700&display=swap');
+  .navbar-brand {
+    font-family: 'fira code', monospace;
+  }
 </style>
